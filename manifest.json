@@ -1,0 +1,39 @@
+{
+    "name": "Chrome Shortcuts",
+    "description": "Keyboard Shortcuts for Chrome",
+    "version": "1.0",
+    "manifest_version": 3,
+    "background": {
+        "service_worker": "content.js"
+    },
+    "commands": {
+        "Command_1": {
+            "suggested_key": {
+                "default": "Ctrl+Shift+1",
+                "mac": "Command+Shift+1"
+            },
+            "description": "Open Shortcut 1"
+        },
+        "Command_2": {
+            "suggested_key": {
+                "default": "Ctrl+Shift+2",
+                "mac": "Command+Shift+2"
+            },
+            "description": "Open Shortcut 2"
+        },
+        "Command_3": {
+            "suggested_key": {
+                "default": "Ctrl+Shift+3",
+                "mac": "Command+Shift+3"
+            },
+            "description": "Open Shortcut 3"
+        }
+    },
+    "action": {
+        "default_popup": "popup.html",
+        "default_title": "Chrome Shortcuts"
+    },
+    "permissions": [
+        "storage"
+    ]
+}
