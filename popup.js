@@ -1,16 +1,3 @@
-async function getShortcuts() {
-    try {
-        const result = await chrome.storage.local.get([
-            "shortcut1",
-            "shortcut2",
-            "shortcut3",
-        ]);
-        return result;
-    } catch (error) {
-        console.error("Error getting shortcuts from storage:", error);
-        return {};
-    }
-}
 
 document.addEventListener("DOMContentLoaded", async () => {
 
@@ -31,6 +18,10 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     const saveBtn = document.getElementById("saveBtn");
     let statusDiv = document.getElementById("status");
+
+    let openInNewTabCheckbox = document.getElementById("openInNewTab");
+    const openInNewTabValue = await chrome.storage.local.get("openInNewTab");
+    openInNewTabCheckbox.checked = openInNewTabValue.openInNewTab || false;
 
     // Save Shortcuts
     saveBtn.addEventListener("click", () => {
@@ -106,6 +97,10 @@ document.addEventListener("DOMContentLoaded", async () => {
                     }, 2000);
                 }
             });
+    });
+
+    openInNewTabCheckbox.addEventListener("change", () => {
+        chrome.storage.local.set({ openInNewTab: openInNewTabCheckbox.checked });
     });
 
 });
