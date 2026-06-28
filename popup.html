@@ -10,9 +10,8 @@
 
     <body
         style="
-            min-width: 400px;
-            min-height: 450px;
-            padding: 20px;
+            min-width: 280px;
+            min-height: 400px;
             font-family: monospace;
             align-items: center;
             display: flex;
@@ -21,39 +20,42 @@
         "
     >
         <container>
-            <h1>Edit Shortcuts</h1>
-            <h3>Shortcut 1</h3>
+            <h2>Edit Shortcuts</h2>
+
+            <h3 style="margin-bottom: 15px;">Shortcut 1</h3>
             <input
                 type="text"
                 id="shortcut1"
                 placeholder="Shortcut 1 URL"
-                style="margin: 10px 0"
             />
             <br />
-            <h3>Shortcut 2</h3>
+
+            <h3 style="margin-bottom: 15px;">Shortcut 2</h3>
             <input
                 type="text"
                 id="shortcut2"
                 placeholder="Shortcut 2 URL"
-                style="margin: 10px 0"
             />
             <br />
-            <h3>Shortcut 3</h3>
+
+            <h3 style="margin-bottom: 15px;">Shortcut 3</h3>
             <input
                 type="text"
                 id="shortcut3"
                 placeholder="Shortcut 3 URL"
-                style="margin-top: 10px; margin-bottom: 20px"
+                style="margin-bottom: 15px"
             />
             <br />
-            <button id="saveBtn" style="margin: 10px 0">Save Shortcuts</button>
 
-            <button id="clearBtn" style="margin: 10px 0">
-                Clear Shortcuts
-            </button>
-            <input type="checkbox" id="openInNewTab" style="margin: 10px 0" />
+            <button id="saveBtn" style="margin: 10px 0">Save</button>
+            <button id="clearBtn" style="margin: 10px 0">Clear</button>
+            <br />
+
+            <input type="checkbox" id="openInNewTab" style="margin: 10px 0 15px 0" />
             <label for="openInNewTab">Open in new tab</label>
-            <div id="status" style="margin-top: 20px"></div>
+            
+            <div id="status"></div>
+
         </container>
     </body>
 </html>
