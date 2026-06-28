@@ -1,6 +1,6 @@
 # Chrome Shortcuts
 
-Chrome Shortcuts is a Chrome extension that opens custom websites with keyboard shortcuts in a new tab.
+Chrome Shortcuts is a Chrome extension that opens custom websites with keyboard shortcuts.
 
 ## Features
 
@@ -20,7 +20,7 @@ Chrome Shortcuts is a Chrome extension that opens custom websites with keyboard 
 1. Click the extension icon.
 2. Enter up to three website URLs.
 3. Click Save Shortcuts.
-4. Press one of the keyboard shortcuts to open the saved URL in a new tab.
+4. Press one of the keyboard shortcuts to open the saved URL.
 
 ## Default shortcuts
 
