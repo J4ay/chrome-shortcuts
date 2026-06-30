@@ -34,6 +34,19 @@ document.addEventListener("DOMContentLoaded", async () => {
     const openInNewTabValue3 = await chrome.storage.local.get("openInNewTab3");
     openInNewTabCheckbox3.checked = openInNewTabValue3.openInNewTab3 || false;
 
+    let openInNewWindowCheckbox1 = document.getElementById("openInNewWindow1");
+    let openInNewWindowCheckbox2 = document.getElementById("openInNewWindow2");
+    let openInNewWindowCheckbox3 = document.getElementById("openInNewWindow3");
+
+    const openInNewWindowValue1 = await chrome.storage.local.get("openInNewWindow1");
+    openInNewWindowCheckbox1.checked = openInNewWindowValue1.openInNewWindow1 || false;
+
+    const openInNewWindowValue2 = await chrome.storage.local.get("openInNewWindow2");
+    openInNewWindowCheckbox2.checked = openInNewWindowValue2.openInNewWindow2 || false;
+
+    const openInNewWindowValue3 = await chrome.storage.local.get("openInNewWindow3");
+    openInNewWindowCheckbox3.checked = openInNewWindowValue3.openInNewWindow3 || false;
+
     // Save Shortcuts
     saveBtn.addEventListener("click", () => {
         if (saveTimeout) clearTimeout(saveTimeout); // Clear any pending save timeout
@@ -126,12 +139,46 @@ document.addEventListener("DOMContentLoaded", async () => {
     });
 
     openInNewTabCheckbox1.addEventListener("change", () => {
+        if (openInNewWindowCheckbox1.checked && openInNewTabCheckbox1.checked) {
+            openInNewWindowCheckbox1.checked = false;
+        }
         chrome.storage.local.set({ openInNewTab1: openInNewTabCheckbox1.checked });
+        chrome.storage.local.set({ openInNewWindow1: openInNewWindowCheckbox1.checked });
     });
     openInNewTabCheckbox2.addEventListener("change", () => {
+        if (openInNewWindowCheckbox2.checked && openInNewTabCheckbox2.checked) {
+            openInNewWindowCheckbox2.checked = false;
+        }
         chrome.storage.local.set({ openInNewTab2: openInNewTabCheckbox2.checked });
+        chrome.storage.local.set({ openInNewWindow2: openInNewWindowCheckbox2.checked });
     });
     openInNewTabCheckbox3.addEventListener("change", () => {
+        if (openInNewWindowCheckbox3.checked && openInNewTabCheckbox3.checked) {
+            openInNewWindowCheckbox3.checked = false;
+        }
+        chrome.storage.local.set({ openInNewTab3: openInNewTabCheckbox3.checked });
+        chrome.storage.local.set({ openInNewWindow3: openInNewWindowCheckbox3.checked });
+    });
+
+    openInNewWindowCheckbox1.addEventListener("change", () => {
+        if (openInNewTabCheckbox1.checked && openInNewWindowCheckbox1.checked) {
+            openInNewTabCheckbox1.checked = false;
+        }
+        chrome.storage.local.set({ openInNewWindow1: openInNewWindowCheckbox1.checked });
+        chrome.storage.local.set({ openInNewTab1: openInNewTabCheckbox1.checked });
+    });
+    openInNewWindowCheckbox2.addEventListener("change", () => {
+        if (openInNewTabCheckbox2.checked && openInNewWindowCheckbox2.checked) {
+            openInNewTabCheckbox2.checked = false;
+        }
+        chrome.storage.local.set({ openInNewWindow2: openInNewWindowCheckbox2.checked });
+        chrome.storage.local.set({ openInNewTab2: openInNewTabCheckbox2.checked });
+    });
+    openInNewWindowCheckbox3.addEventListener("change", () => {
+        if (openInNewTabCheckbox3.checked && openInNewWindowCheckbox3.checked) {
+            openInNewTabCheckbox3.checked = false;
+        }
+        chrome.storage.local.set({ openInNewWindow3: openInNewWindowCheckbox3.checked });
         chrome.storage.local.set({ openInNewTab3: openInNewTabCheckbox3.checked });
     });
 

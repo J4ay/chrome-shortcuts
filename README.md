@@ -6,7 +6,8 @@ Chrome Shortcuts is a Chrome extension that opens custom websites with keyboard 
 
 - Three configurable shortcuts
 - Edit shortcut URLs in the extension popup
-- Keyboard shortcuts can be reassigned in [extension shortcuts settings](chrome://extensions/shortcuts)
+- Keyboard shortcuts can be reassigned in and deactivated [extension shortcuts settings](chrome://extensions/shortcuts)
+- Option to open shortcuts in a new tab or a new window
 
 ## Setup
 
