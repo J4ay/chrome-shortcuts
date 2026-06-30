@@ -5,57 +5,86 @@
         <title>Chrome Shortcuts</title>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="stylesheet" href="" />
+        <style>
+            button:hover {
+                background-color: rgb(190, 190, 190) !important;
+            }
+        </style>
         <script src="popup.js"></script>
     </head>
 
     <body
         style="
-            min-width: 280px;
-            min-height: 400px;
+            margin: 0;
+            min-width: 300px;
             font-family: monospace;
             align-items: center;
             display: flex;
             flex-direction: column;
             font-size: larger;
+            background-color: rgb(240, 240, 240);
         "
     >
-        <container>
-            <h2>Edit Shortcuts</h2>
+        <container style="width: calc(100% - 20px); max-width: 450px; margin: 10px 0 10px 0;">
+            <div style="margin: 0 0 10px 0; font-weight: bold; font-size: 1.5em;">Edit Shortcuts</div>
 
-            <h3 style="margin-bottom: 15px;">Shortcut 1</h3>
-            <input
-                type="text"
-                id="shortcut1"
-                placeholder="Shortcut 1 URL"
-            />
-            <br />
+            <div style="background-color: rgb(255, 255, 255);
+                padding: 10px;
+                border-radius: 5px;
+                margin-bottom: 10px;">
+                <div style="margin-bottom: 10px; font-weight: bold; font-size: larger;">Shortcut 1</div>
+                
+                <input
+                    type="text"
+                    id="shortcut1"
+                    placeholder="Shortcut 1 URL"
+                    style="margin-bottom: 10px; width: 100%; box-sizing: border-box; border: 1px solid rgb(200, 200, 200); border-radius: 5px; padding: 5px;"
+                />
+                <br />
+                <input type="checkbox" id="openInNewTab1" style="margin-left: 0; vertical-align: middle; min-width: 16px; min-height: 16px;" />
+                <label for="openInNewTab1" style="vertical-align: middle; user-select: none;">Open in new tab</label>
+                <br />
+            </div>
 
-            <h3 style="margin-bottom: 15px;">Shortcut 2</h3>
-            <input
-                type="text"
-                id="shortcut2"
-                placeholder="Shortcut 2 URL"
-            />
-            <br />
+            <div style="background-color: rgb(255, 255, 255);
+                padding: 10px;
+                border-radius: 5px;
+                margin-bottom: 10px;">
+                <div style="margin-bottom: 10px; font-weight: bold; font-size: larger;">Shortcut 2</div>
+                <input
+                    type="text"
+                    id="shortcut2"
+                    placeholder="Shortcut 2 URL"
+                    style="margin-bottom: 10px; width: 100%; box-sizing: border-box; border: 1px solid rgb(200, 200, 200); border-radius: 5px; padding: 5px;"
+                />
+                <br />
+                <input type="checkbox" id="openInNewTab2" style="margin-left: 0; vertical-align: middle; min-width: 16px; min-height: 16px;" />
+                <label for="openInNewTab2" style="vertical-align: middle; user-select: none;">Open in new tab</label>
+                <br />
+            </div>
 
-            <h3 style="margin-bottom: 15px;">Shortcut 3</h3>
-            <input
-                type="text"
-                id="shortcut3"
-                placeholder="Shortcut 3 URL"
-                style="margin-bottom: 15px"
-            />
-            <br />
+            <div style="background-color: rgb(255, 255, 255);
+                padding: 10px;
+                border-radius: 5px;
+                margin-bottom: 10px;">
+                <div style="margin-bottom: 10px; font-weight: bold; font-size: larger;">Shortcut 3</div>
+                <input
+                    type="text"
+                    id="shortcut3"
+                    placeholder="Shortcut 3 URL"
+                    style="margin-bottom: 10px; width: 100%; box-sizing: border-box; border: 1px solid rgb(200, 200, 200); border-radius: 5px; padding: 5px;"
+                />
+                <br />
+                <input type="checkbox" id="openInNewTab3" style="margin-left: 0; vertical-align: middle; min-width: 16px; min-height: 16px;" />
+                <label for="openInNewTab3" style="vertical-align: middle; user-select: none;">Open in new tab</label>
+                <br />
+            </div>
 
-            <button id="saveBtn" style="margin: 10px 0">Save</button>
-            <button id="clearBtn" style="margin: 10px 0">Clear</button>
-            <br />
-
-            <input type="checkbox" id="openInNewTab" style="margin: 10px 0 15px 0" />
-            <label for="openInNewTab">Open in new tab</label>
-            
-            <div id="status"></div>
-
+            <div style="display: flex; align-items: center; gap: 8px;">
+                <button id="saveBtn" style="border: 0; border-radius: 5px; padding: 12px 20px; background-color: rgb(255, 255, 255); user-select: none;">Save</button>
+                <button id="clearBtn" style="border: 0; border-radius: 5px; padding: 12px 20px; background-color: rgb(255, 255, 255); user-select: none;">Clear</button>
+                <div id="status" style="display: flex; align-items: center;"></div>
+            </div>
         </container>
     </body>
 </html>

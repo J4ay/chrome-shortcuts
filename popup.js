@@ -3,6 +3,8 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     let confirmDelete = false;
     let confirmTimeout = null;
+    let saveTimeout = null;
+    let deleteTimeout = null;
     const clearBtn = document.getElementById("clearBtn");
     const originalText = clearBtn.textContent || "Clear";
 
@@ -19,12 +21,25 @@ document.addEventListener("DOMContentLoaded", async () => {
     const saveBtn = document.getElementById("saveBtn");
     let statusDiv = document.getElementById("status");
 
-    let openInNewTabCheckbox = document.getElementById("openInNewTab");
-    const openInNewTabValue = await chrome.storage.local.get("openInNewTab");
-    openInNewTabCheckbox.checked = openInNewTabValue.openInNewTab || false;
+    let openInNewTabCheckbox1 = document.getElementById("openInNewTab1");
+    let openInNewTabCheckbox2 = document.getElementById("openInNewTab2");
+    let openInNewTabCheckbox3 = document.getElementById("openInNewTab3");
+
+    const openInNewTabValue1 = await chrome.storage.local.get("openInNewTab1");
+    openInNewTabCheckbox1.checked = openInNewTabValue1.openInNewTab1 || false;
+
+    const openInNewTabValue2 = await chrome.storage.local.get("openInNewTab2");
+    openInNewTabCheckbox2.checked = openInNewTabValue2.openInNewTab2 || false;
+
+    const openInNewTabValue3 = await chrome.storage.local.get("openInNewTab3");
+    openInNewTabCheckbox3.checked = openInNewTabValue3.openInNewTab3 || false;
 
     // Save Shortcuts
     saveBtn.addEventListener("click", () => {
+        if (saveTimeout) clearTimeout(saveTimeout); // Clear any pending save timeout
+        if (deleteTimeout) clearTimeout(deleteTimeout); // Clear any pending delete timeout
+        if (confirmTimeout) clearTimeout(confirmTimeout); // Clear any pending confirmation timeout
+
         confirmDelete = false;
         clearBtn.textContent = originalText;
 
@@ -33,27 +48,37 @@ document.addEventListener("DOMContentLoaded", async () => {
                 input.value = "https://" + input.value;
             }
         });
-
-        chrome.storage.local
-            .set({
-                shortcut1: shortcut1.value,
-                shortcut2: shortcut2.value,
-                shortcut3: shortcut3.value,
-            })
-            .then(() => {
-                if (statusDiv) {
-                    statusDiv.textContent = "Shortcuts saved!";
-                    setTimeout(() => {
-                        if (statusDiv) {
-                            statusDiv.textContent = "";
-                        }
-                    }, 2000);
-                }
-            });
+        try {
+            chrome.storage.local
+                .set({
+                    shortcut1: shortcut1.value,
+                    shortcut2: shortcut2.value,
+                    shortcut3: shortcut3.value,
+                })
+                .then(() => {
+                    if (statusDiv) {
+                        statusDiv.textContent = "Shortcuts saved!";
+                        saveTimeout = setTimeout(() => {
+                            if (statusDiv) {
+                                statusDiv.textContent = "";
+                            }
+                        }, 2000);
+                    }
+                });
+        } catch (error) {
+            if (statusDiv) {
+                statusDiv.textContent = "Error saving shortcuts!";
+            }
+        }
     });
 
     // Clear Shortcuts with confirmation
     clearBtn.addEventListener("click", () => {
+        statusDiv.textContent = ""; // Clear any previous status messages
+        if (saveTimeout) clearTimeout(saveTimeout); // Clear any pending save timeout
+        if (deleteTimeout) clearTimeout(deleteTimeout); // Clear any pending delete timeout
+        if (confirmTimeout) clearTimeout(confirmTimeout); // Clear any pending confirmation timeout
+
         if (!confirmDelete) {
             // first press: ask for confirmation
             confirmDelete = true;
@@ -63,44 +88,51 @@ document.addEventListener("DOMContentLoaded", async () => {
             confirmTimeout = setTimeout(() => {
                 confirmDelete = false;
                 clearBtn.textContent = originalText;
-                if (statusDiv) statusDiv.textContent = "";
                 confirmTimeout = null;
             }, 5000);
 
             return;
         }
 
-        // second press within timeframe: proceed to clear
-        if (confirmTimeout) {
-            clearTimeout(confirmTimeout);
-            confirmTimeout = null;
-        }
         confirmDelete = false;
         clearBtn.textContent = originalText;
 
         shortcut1.value = "";
         shortcut2.value = "";
         shortcut3.value = "";
-        chrome.storage.local
-            .set({
-                shortcut1: "",
-                shortcut2: "",
-                shortcut3: "",
-            })
-            .then(() => {
-                if (statusDiv) {
-                    statusDiv.textContent = "Shortcuts cleared!";
-                    setTimeout(() => {
-                        if (statusDiv) {
-                            statusDiv.textContent = "";
-                        }
-                    }, 2000);
-                }
-            });
+
+        try {
+            chrome.storage.local
+                .set({
+                    shortcut1: "",
+                    shortcut2: "",
+                    shortcut3: "",
+                })
+                .then(() => {
+                    if (statusDiv) {
+                        statusDiv.textContent = "Shortcuts cleared!";
+                        deleteTimeout = setTimeout(() => {
+                            if (statusDiv) {
+                                statusDiv.textContent = "";
+                            }
+                        }, 2000);
+                    }
+                });
+        } catch (error) {
+            if (statusDiv) {
+                statusDiv.textContent = "Error clearing shortcuts!";
+            }
+        }
     });
 
-    openInNewTabCheckbox.addEventListener("change", () => {
-        chrome.storage.local.set({ openInNewTab: openInNewTabCheckbox.checked });
+    openInNewTabCheckbox1.addEventListener("change", () => {
+        chrome.storage.local.set({ openInNewTab1: openInNewTabCheckbox1.checked });
+    });
+    openInNewTabCheckbox2.addEventListener("change", () => {
+        chrome.storage.local.set({ openInNewTab2: openInNewTabCheckbox2.checked });
+    });
+    openInNewTabCheckbox3.addEventListener("change", () => {
+        chrome.storage.local.set({ openInNewTab3: openInNewTabCheckbox3.checked });
     });
 
 });
