@@ -67,7 +67,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             return;
         }
 
-        if (statusClearTimeout)clearTimeout(statusClearTimeout);
+        if (statusClearTimeout) clearTimeout(statusClearTimeout);
         if (statusSwapTimeout) clearTimeout(statusSwapTimeout);
 
         statusDiv.style.transition = "opacity " + (time || 150) + "ms ease";
@@ -183,7 +183,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         if (saveTimeout) clearTimeout(saveTimeout); // Clear any pending save timeout
         if (deleteTimeout) clearTimeout(deleteTimeout); // Clear any pending delete timeout
         if (confirmTimeout) clearTimeout(confirmTimeout); // Clear any pending confirmation timeout
-        
+
         if (!confirmDelete) {
             hideStatusMessage(60); // Clear any previous status messages
             // first press: ask for confirmation
@@ -269,4 +269,87 @@ document.addEventListener("DOMContentLoaded", async () => {
         chrome.storage.local.set({ openInNewTab3: openInNewTabCheckbox3.checked });
     });
 
+    shortcut1.addEventListener("keypress", (event) => {
+        if (event.key === "Enter") {
+            if (saveTimeout) clearTimeout(saveTimeout); // Clear any pending save timeout
+            if (deleteTimeout) clearTimeout(deleteTimeout); // Clear any pending delete timeout
+            if (confirmTimeout) clearTimeout(confirmTimeout); // Clear any pending confirmation timeout
+
+            confirmDelete = false;
+            setClearButtonText(originalText);
+
+            if (shortcut1.value && !/^https?:\/\//i.test(shortcut1.value)) {
+                shortcut1.value = "https://" + shortcut1.value;
+            }
+            try {
+                chrome.storage.local
+                    .set({
+                        shortcut1: shortcut1.value
+                    })
+                    .then(() => {
+                        showStatusMessage("Shortcut 1 saved!");
+                        saveTimeout = setTimeout(() => {
+                            hideStatusMessage();
+                        }, 2000);
+                    });
+            } catch (error) {
+                showStatusMessage("Error saving shortcut 1!");
+            }
+        }
+    });
+    shortcut2.addEventListener("keypress", (event) => {
+        if (event.key === "Enter") {
+            if (saveTimeout) clearTimeout(saveTimeout); // Clear any pending save timeout
+            if (deleteTimeout) clearTimeout(deleteTimeout); // Clear any pending delete timeout
+            if (confirmTimeout) clearTimeout(confirmTimeout); // Clear any pending confirmation timeout
+            confirmDelete = false;
+            setClearButtonText(originalText);
+
+            if (shortcut2.value && !/^https?:\/\//i.test(shortcut2.value)) {
+                shortcut2.value = "https://" + shortcut2.value;
+            }
+            try {
+                chrome.storage.local
+                    .set({
+                        shortcut2: shortcut2.value
+                    })
+                    .then(() => {
+                        showStatusMessage("Shortcut 2 saved!");
+                        saveTimeout = setTimeout(() => {
+                            hideStatusMessage();
+                        }, 2000);
+                    });
+            } catch (error) {
+                showStatusMessage("Error saving shortcut 2!");
+            }
+
+        }
+    });
+    shortcut3.addEventListener("keypress", (event) => {
+        if (event.key === "Enter") {
+            if (saveTimeout) clearTimeout(saveTimeout); // Clear any pending save timeout
+            if (deleteTimeout) clearTimeout(deleteTimeout); // Clear any pending delete timeout
+            if (confirmTimeout) clearTimeout(confirmTimeout); // Clear any pending confirmation timeout
+            confirmDelete = false;
+            setClearButtonText(originalText);
+
+            if (shortcut3.value && !/^https?:\/\//i.test(shortcut3.value)) {
+                shortcut3.value = "https://" + shortcut3.value;
+            }
+            try {
+                chrome.storage.local
+                    .set({
+                        shortcut3: shortcut3.value
+                    })
+                    .then(() => {
+                        showStatusMessage("Shortcut 3 saved!");
+                        saveTimeout = setTimeout(() => {
+                            hideStatusMessage();
+                        }, 2000);
+                    });
+            } catch (error) {
+                showStatusMessage("Error saving shortcut 3!");
+            }
+        }
+    });
 });
