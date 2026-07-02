@@ -9,6 +9,22 @@
             button:hover {
                 background-color: rgb(190, 190, 190) !important;
             }
+
+            #clearBtn {
+                white-space: nowrap;
+                overflow: hidden;
+                transition: width 0.2s ease
+            }
+
+            #status {
+                opacity: 0;
+                transition: opacity 0.15s ease;
+                will-change: opacity;
+            }
+
+            #status.is-visible {
+                opacity: 1;
+            }
         </style>
         <script src="popup.js"></script>
     </head>
